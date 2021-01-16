@@ -3,6 +3,8 @@ library(dplyr)
 library(tidyr)
 library(stringr)
 
+source("R/choose_city_country.R")
+
 tuesdata <- tidytuesdayR::tt_load('2021-01-12')
 
 artwork <- tuesdata$artwork
@@ -19,7 +21,18 @@ artists_clean <- artists %>%
     ) %>% 
   separate(placeOfBirth,
            into = c("birth_city", "birth_country"), sep = ", ",
-           remove = FALSE)
+           remove = FALSE) %>%
+  choose_city_country("birth")
   
   
          
+blah <- artists_clean %>% 
+  mutate(
+    test = sum(str_detect(.$birth_country, placeOfBirth), na.rm = TRUE),
+    city = sum(str_detect(.$birth_city, placeOfBirth), na.rm = TRUE),
+    country = sum(str_detect(.$birth_country, placeOfBirth), na.rm = TRUE)
+    )
+
+blah %>% 
+  filter(bplace_commas == 0) %>%
+  glimpse()
