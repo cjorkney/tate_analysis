@@ -28,7 +28,8 @@ artists_clean <- artists %>%
          
 blah <- artists_clean %>% 
   mutate(
-    test = sum(str_detect(.$birth_country, placeOfBirth), na.rm = TRUE),
+    logic = placeOfBirth %in% pull(artists_clean, birth_country),
+    test = sum(str_detect(pull(artists_clean, birth_country), placeOfBirth), na.rm = TRUE),
     city = sum(str_detect(.$birth_city, placeOfBirth), na.rm = TRUE),
     country = sum(str_detect(.$birth_country, placeOfBirth), na.rm = TRUE)
     )
