@@ -17,7 +17,9 @@ artists_clean <- artists %>%
   mutate(
     across(c("id", "gender"), ~ as.factor(.x)),
     bplace_commas = str_count(placeOfBirth, ","),
+    dplace_commas = str_count(placeOfDeath, ","),
     placeOfBirth = str_replace(placeOfBirth, ",\\s.+,", ","),
+    placeOfDeath = str_replace(placeOfDeath, ",\\s.+,", ","),
     ) %>% 
   separate(placeOfBirth,
            into = c("birth_city", "birth_country"), sep = ", ",
