@@ -22,7 +22,10 @@ artists_clean <- artists %>%
   separate(placeOfBirth,
            into = c("birth_city", "birth_country"), sep = ", ",
            remove = FALSE) %>%
-  choose_city_country("birth")
+  separate(placeOfDeath,
+           into = c("death_city", "death_country"), sep = ", ",
+           remove = FALSE) %>%
+  choose_city_country()
   
   
          
